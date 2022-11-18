@@ -14,6 +14,7 @@
     <ProjectGuid>{2EE1F2C2-040C-46D8-8332-127B746115A6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>OpenGL2DTemplate</RootNamespace>
+    <ProjectName>ChickenInvaders</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -82,7 +83,19 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="OpenGL2DTemplate.cpp" />
+    <ClCompile Include="CBullet.cpp" />
+    <ClCompile Include="CGame.cpp" />
+    <ClCompile Include="CGameObject.cpp" />
+    <ClCompile Include="CSpaceship.cpp" />
+    <ClCompile Include="Program.cpp" />
+    <ClCompile Include="Shapes.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CBullet.h" />
+    <ClInclude Include="CGame.h" />
+    <ClInclude Include="CGameObject.h" />
+    <ClInclude Include="CSpaceship.h" />
+    <ClInclude Include="Shapes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
