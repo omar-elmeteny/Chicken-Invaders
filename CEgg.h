@@ -1,10 +1,10 @@
 #pragma once
 #include "CGameObject.h"
-
-class CBullet : public CGameObject
+class CEgg :
+    public CGameObject
 {
 public:
-	CBullet(int rx, int ry, int xc, int yc, float r, float g, float b)
+	CEgg(int rx, int ry, int xc, int yc, float r, float g, float b)
 	{
 		this->rx = rx;
 		this->ry = ry;
@@ -16,11 +16,11 @@ public:
 	}
 
 	int rx;
-	int ry; 
+	int ry;
 	int xc;
-	int yc; 
-	float r; 
-	float g; 
+	int yc;
+	float r;
+	float g;
 	float b;
 	void draw();
 	Rectangle getRectangle();

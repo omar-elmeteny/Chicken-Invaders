@@ -36,6 +36,21 @@
     <ClCompile Include="Shapes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CChicken.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CEgg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CHeart.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CHealthBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CPowerUp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGameObject.h">
@@ -50,7 +65,22 @@
     <ClInclude Include="CSpaceship.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CChicken.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Shapes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CEgg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CHeart.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CHealthBar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CPowerUp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

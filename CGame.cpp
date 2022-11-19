@@ -1,8 +1,29 @@
 #include "CGame.h"
+#include "glut.h"
+
+char player[] = { "Player" };
+char enemy[] = { "Enemy" };
+char playerWonMessage[] = { "You won!!" };
+char chickenWonMessage[] = { "You lost!!" };
 
 CGame::CGame() {
 	spaceship = new CSpaceship();
 	this->objects.push_back(spaceship);
+	chicken = new CChicken();
+	chicken->ypos = -100;
+	this->objects.push_back(chicken);
+	heart1 = new CHeart(10,20,600,1470,1,0,0);
+	this->objects.push_back(heart1);
+	this->lives.push_back(heart1);
+	heart2 = new CHeart(10,20,650,1470,1,0,0);
+	this->objects.push_back(heart2);
+	this->lives.push_back(heart2);
+	heart3 = new CHeart(10,20,700,1470,1,0,0);
+	this->objects.push_back(heart3);
+	this->lives.push_back(heart3);
+	healthbar = new CHealthBar(200);
+	this->objects.push_back(healthbar);
+	this->powerUp = nullptr;
 }
 
 CGame::~CGame() {
@@ -22,12 +43,50 @@ void CGame::addBullet()
 	this->bullets.push_back(bullet);
 }
 
+void CGame::removeHeart(CHeart* obj) {
+	auto point = std::find_if(this->lives.begin(), this->lives.end(), [obj](CHeart* b) -> bool {
+		return b == obj;
+		});
+	if (point != this->lives.end()) {
+		this->lives.erase(point);
+	}
+	removeObject(obj);
+}
+
+void CGame::addEgg()
+{
+	CEgg* egg = new CEgg(10, 30, 100, 1100, 1.0f, 1.0f, 1.0f);
+	egg->xpos = chicken->xpos;
+	egg->ypos = chicken->ypos;
+	this->objects.push_back(egg);
+	this->eggs.push_back(egg);
+}
+
+void CGame::addPowerUp() {
+	int x = left + (rand() % right);
+	int y = bottom + (rand() % top / 2);
+	powerUp = new CPowerUp();
+	powerUp->xpos = x;
+	powerUp->ypos = y;
+	this->objects.push_back(powerUp);
+}
+
 void CGame::removeBullet(CBullet* obj) {
 	auto point = std::find_if(this->bullets.begin(), this->bullets.end(), [obj](CBullet* b) -> bool {
 		return b == obj;
 		});
 	if (point != this->bullets.end()) {
 		this->bullets.erase(point);
+	}
+	removeObject(obj);
+}
+
+void CGame::removeEgg(CEgg* obj) {
+	auto point = std::find_if(this->eggs.begin(), this->eggs.end(), [obj](CEgg* b) -> bool {
+		return b == obj;
+		});
+	if (point != this->eggs.end()) {
+		this->eggs.erase(point);
 	}
 	removeObject(obj);
 }
@@ -42,13 +101,88 @@ void CGame::removeObject(CGameObject* obj) {
 	delete obj;
 }
 
-void CGame::tick() {
-	for (size_t i = 0; i < this->bullets.size(); i++) {
+
+void CGame::playerAttacked() {
+	if (lives.size() == 0) {
+		return;
+	}
+	CHeart* heart = this->lives[lives.size() - 1];
+	for (size_t i = 0;i < this->eggs.size();i++) {
+		CEgg* egg = this->eggs[i];
+		if (egg->isIntersecting(spaceship)) {
+			removeHeart(heart);
+			removeEgg(egg);
+		}
+	}
+	if (lives.size() == 0) {
+		this->gameOver = true;
+		this->playerLost = true;
+	}
+}
+
+void CGame::chickenAttacked() {
+	if (healthbar->width == 0) {
+		return;
+	}
+	for (size_t i = 0;i < this->bullets.size();i++) {
 		CBullet* bullet = this->bullets[i];
-		bullet->ypos += bulletSpeed;
-		if (bullet->ypos > top) {
+		if (bullet->isIntersecting(chicken)) {
+			healthbar->width -= 20;
 			removeBullet(bullet);
-			i--;
+		}
+	}
+	if (healthbar->width == 0) {
+		gameOver = true;
+		playerWon = true;
+	}
+}
+
+void CGame::tick() {
+	if (!gameOver) {
+		playerAttacked();
+		chickenAttacked();
+		if (ticks % eggRate == 0) {
+			addEgg();
+		}
+
+		if (ticks % powerUpRate == 0) {
+			addPowerUp();
+		}
+
+		if (ticks % (powerUpRate + powerUpClear) == 0) {
+			removeObject(powerUp);
+		}
+
+		switch (chickenDirection) {
+		case -1:
+			if (chicken->xpos - chickenSpeed < left) {
+				chickenDirection = -chickenDirection;
+			}
+			break;
+		case 1:
+			if (chicken->xpos + chickenSpeed > right - 200) {
+				chickenDirection = -chickenDirection;
+			}
+			break;
+		}
+
+		chicken->xpos += chickenDirection * chickenSpeed;
+
+		for (size_t i = 0; i < this->bullets.size(); i++) {
+			CBullet* bullet = this->bullets[i];
+			bullet->ypos += bulletSpeed;
+			if (bullet->ypos > top) {
+				removeBullet(bullet);
+				i--;
+			}
+		}
+		for (size_t i = 0; i < this->eggs.size(); i++) {
+			CEgg* egg = this->eggs[i];
+			egg->ypos -= bulletSpeed;
+			if (egg->ypos > top) {
+				removeEgg(egg);
+				i--;
+			}
 		}
 	}
 	ticks++;
@@ -57,5 +191,29 @@ void CGame::tick() {
 void CGame::draw() {
 	for (CGameObject* obj : this->objects) {
 		obj->draw();
+	}
+
+	glRasterPos2d(450, 1440);
+	for (size_t i = 0;i < strlen(player);i++) {
+		glutBitmapCharacter(GLUT_BITMAP_9_BY_15, player[i]);
+	}
+	glRasterPos2d(-450, 1450);
+	for (size_t i = 0;i < strlen(enemy);i++) {
+		glutBitmapCharacter(GLUT_BITMAP_9_BY_15, enemy[i]);
+	}
+
+	if (gameOver) {
+		if (playerWon) {
+			glRasterPos2d((left + right - strlen(playerWonMessage) * 9) / 2, (top + bottom) / 2);
+			for (size_t i = 0;i < strlen(playerWonMessage);i++) {
+				glutBitmapCharacter(GLUT_BITMAP_9_BY_15, playerWonMessage[i]);
+			}
+		}
+		else {
+			glRasterPos2d((left + right - strlen(chickenWonMessage) * 9) / 2, (top + bottom) / 2);
+			for (size_t i = 0;i < strlen(chickenWonMessage);i++) {
+				glutBitmapCharacter(GLUT_BITMAP_9_BY_15, chickenWonMessage[i]);
+			}
+		}
 	}
 }

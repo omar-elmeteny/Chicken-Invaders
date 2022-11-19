@@ -1,7 +1,7 @@
-#include "CBullet.h"
+#include "CEgg.h"
 #include <glut.h>
 
-void CBullet::draw() {
+void CEgg::draw() {
 
 	float dx, dy, d1, d2, x, y;
 	x = 0;
@@ -21,10 +21,8 @@ void CBullet::draw() {
 
 		glVertex3f(x + xc + xpos, ypos + y + yc, 0);
 		glVertex3f(-x + xc + xpos, ypos + y + yc, 0);
-		if (n > 20) {
-			glVertex3f(x + xc + xpos, ypos - y + yc, 0);
-			glVertex3f(-x + xc + xpos, ypos - y + yc, 0);
-		}
+		glVertex3f(x + xc + xpos, ypos - y + yc, 0);
+		glVertex3f(-x + xc + xpos, ypos - y + yc, 0);
 
 		if (d1 < 0) {
 			x++;
@@ -46,10 +44,8 @@ void CBullet::draw() {
 
 		glVertex3f(x + xc + xpos, ypos + y + yc, 0);
 		glVertex3f(-x + xc + xpos, ypos + y + yc, 0);
-		if (n > 20) {
-			glVertex3f(x + xc + xpos, ypos - y + yc, 0);
-			glVertex3f(-x + xc + xpos, ypos - y + yc, 0);
-		}
+		glVertex3f(x + xc + xpos, ypos - y + yc, 0);
+		glVertex3f(-x + xc + xpos, ypos - y + yc, 0);
 
 		if (d2 > 0) {
 			y--;
@@ -68,7 +64,7 @@ void CBullet::draw() {
 	glEnd();
 }
 
-Rectangle CBullet::getRectangle() {
+Rectangle CEgg::getRectangle() {
 	Rectangle result;
 	result.left = xpos + xc - rx;
 	result.right = xpos + xc + rx;
@@ -77,3 +73,4 @@ Rectangle CBullet::getRectangle() {
 	result.bottom = ypos + yc - ry;
 	return result;
 }
+

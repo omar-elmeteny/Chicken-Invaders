@@ -9,37 +9,28 @@ using namespace std;
 
 CGame game;
 
-float ypos = 0;
-int state = 1;
-
-
-
 void timer(int) {
-
 	game.tick();
 	glutPostRedisplay();
 	glutTimerFunc(10, timer, 0);
-
-	/*ypos = ypos + 40;
-
-	if (ypos > 1500) {
-		ypos = 0;
-	}*/
-
 }
+
 
 
 void Display() {
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	game.draw();
-
+	
 	glFlush();
 	glutPostRedisplay();
 	glutSwapBuffers();
 }
 
 void specialKey(int key, int x, int y) {
+	if (game.gameOver) {
+		return;
+	}
 	switch (key) {
 	case GLUT_KEY_UP:
 		if (game.spaceship->ypos + game.spaceShipSpeed < game.top - 250) {
@@ -65,12 +56,13 @@ void specialKey(int key, int x, int y) {
 			glutPostRedisplay();
 		}
 		break;
-	case ' ':
-		game.addBullet();
 	}
 }
 
 void charKey(unsigned char key, int x, int y) {
+	if (game.gameOver) {
+		return;
+	}
 	switch (key) {
 	case ' ':
 		game.addBullet();

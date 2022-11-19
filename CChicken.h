@@ -1,10 +1,9 @@
 #pragma once
 #include "CGameObject.h"
-class CSpaceship :
+class CChicken :
     public CGameObject
 {
 public:
-    bool hasPowerUp = false;
     void draw();
     Rectangle getRectangle();
 };

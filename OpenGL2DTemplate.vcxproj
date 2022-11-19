@@ -41,7 +41,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>false</LinkIncremental>
+    <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -84,16 +84,26 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CBullet.cpp" />
+    <ClCompile Include="CChicken.cpp" />
+    <ClCompile Include="CEgg.cpp" />
     <ClCompile Include="CGame.cpp" />
     <ClCompile Include="CGameObject.cpp" />
+    <ClCompile Include="CHealthBar.cpp" />
+    <ClCompile Include="CHeart.cpp" />
+    <ClCompile Include="CPowerUp.cpp" />
     <ClCompile Include="CSpaceship.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="Shapes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CBullet.h" />
+    <ClInclude Include="CChicken.h" />
+    <ClInclude Include="CEgg.h" />
     <ClInclude Include="CGame.h" />
     <ClInclude Include="CGameObject.h" />
+    <ClInclude Include="CHealthBar.h" />
+    <ClInclude Include="CHeart.h" />
+    <ClInclude Include="CPowerUp.h" />
     <ClInclude Include="CSpaceship.h" />
     <ClInclude Include="Shapes.h" />
   </ItemGroup>

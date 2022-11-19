@@ -1,10 +1,15 @@
 #pragma once
 #include "CGameObject.h"
-class CSpaceship :
+class CHealthBar :
     public CGameObject
 {
 public:
-    bool hasPowerUp = false;
+
+    int width;
+    CHealthBar(int width) {
+        this->width = width;
+    }
+
     void draw();
     Rectangle getRectangle();
 };
