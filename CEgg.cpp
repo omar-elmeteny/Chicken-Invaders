@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "CEgg.h"
 #include "glut.h"
 

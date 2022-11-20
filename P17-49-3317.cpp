@@ -31,7 +31,7 @@ void specialKey(int key, int x, int y) {
 	}
 	switch (key) {
 	case GLUT_KEY_UP:
-		if (game.spaceship->ypos + game.spaceShipSpeed < game.top - 250) {
+		if (game.spaceship->ypos + game.spaceShipSpeed < game.top - 850) {
 			game.spaceship->ypos += game.spaceShipSpeed;
 			glutPostRedisplay();
 		}

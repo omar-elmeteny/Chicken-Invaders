@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "CPowerUp.h"
 #include "glut.h"
 #include "Shapes.h"

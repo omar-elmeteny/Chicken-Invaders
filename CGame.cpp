@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "CGame.h"
 #include "glut.h"
 
@@ -121,7 +122,9 @@ void CGame::playerAttacked() {
 	for (size_t i = 0;i < this->eggs.size();i++) {
 		CEgg* egg = this->eggs[i];
 		if (egg->isIntersecting(spaceship)) {
-			removeHeart(heart);
+			if (!spaceship->hasPowerUp) {
+				removeHeart(heart);
+			}
 			removeEgg(egg);
 		}
 	}
@@ -165,15 +168,13 @@ void CGame::chickenAttacked() {
 void CGame::tick() {
 	if (!gameOver) {
 		powerUpTaken();
-		if(!(spaceship->hasPowerUp)){
-			playerAttacked();
-		}
+		playerAttacked();
 		chickenAttacked();
 		if (ticks % eggRate == 0) {
 			addEgg();
 		}
 
-		if (ticks % powerUpRate == 0) {
+		if (ticks % powerUpRate == 0 && ticks != 0) {
 			addPowerUp();
 		}
 

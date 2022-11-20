@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "glut.h"
 
 void ellipse(int rx, int ry, int xc, int yc, float r, float g, float b) {

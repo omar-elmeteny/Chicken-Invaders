@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "CHeart.h"
 #include "glut.h"
 #include "Shapes.h"
@@ -15,7 +16,7 @@ void CHeart::draw() {
 
 Rectangle CHeart::getRectangle() {
 	Rectangle result;
-|	result.top = yc + ry;
+	result.top = yc + ry;
 	result.bottom = yc - 3 * ry;
 	result.left = xc - 2 * rx;
 	result.right = xc + 2 * rx;

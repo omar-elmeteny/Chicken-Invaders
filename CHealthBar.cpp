@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "CHealthBar.h"
 #include "CHeart.h"
 #include "glut.h"

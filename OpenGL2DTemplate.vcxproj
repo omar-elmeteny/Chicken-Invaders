@@ -95,7 +95,7 @@
     <ClCompile Include="CHeart.cpp" />
     <ClCompile Include="CPowerUp.cpp" />
     <ClCompile Include="CSpaceship.cpp" />
-    <ClCompile Include="Program.cpp" />
+    <ClCompile Include="P17-49-3317.cpp" />
     <ClCompile Include="Shapes.cpp" />
   </ItemGroup>
   <ItemGroup>
