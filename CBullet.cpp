@@ -1,5 +1,5 @@
 #include "CBullet.h"
-#include <glut.h>
+#include "glut.h"
 
 void CBullet::draw() {
 

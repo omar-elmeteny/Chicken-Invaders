@@ -1,5 +1,5 @@
 #include "CEgg.h"
-#include <glut.h>
+#include "glut.h"
 
 void CEgg::draw() {
 

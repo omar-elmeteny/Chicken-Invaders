@@ -1,7 +1,5 @@
 #include <stdlib.h>
-#include <glut.h>
-#include <iostream>
-#include <time.h>
+#include "glut.h"
 
 #include "CGame.h"
 

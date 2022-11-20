@@ -3,12 +3,12 @@
 #include "CBullet.h"
 #include <vector>
 #include "CSpaceship.h"
-#include <CChicken.h>
-#include <CEgg.h>
-#include <CHeart.h>
-#include <CHealthBar.h>
-#include <CPowerUp.h>
-#include <CPowerUp.h>
+#include "CChicken.h"
+#include "CEgg.h"
+#include "CHeart.h"
+#include "CHealthBar.h"
+#include "CPowerUp.h"
+#include "CPowerUp.h"
 
 class CGame
 {
