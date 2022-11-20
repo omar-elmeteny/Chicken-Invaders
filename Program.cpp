@@ -79,7 +79,7 @@ int main(int argc, char** argv) {
 	glutDisplayFunc(Display);
 
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-	glClearColor(0.0f, 1.0f, 0.0f, 0.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	gluOrtho2D(game.left, game.right, game.bottom, game.top);
 
 	glutSpecialFunc(specialKey);

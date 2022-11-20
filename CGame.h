@@ -8,6 +8,7 @@
 #include <CHeart.h>
 #include <CHealthBar.h>
 #include <CPowerUp.h>
+#include <CPowerUp.h>
 
 class CGame
 {
@@ -17,13 +18,15 @@ private:
 	std::vector<CBullet*> bullets;
 	std::vector<CEgg*> eggs;
 	std::vector<CHeart*> lives;
+	std::vector<CPowerUp*> powerUps;
 	void removeBullet(CBullet* obj);
 	void removeObject(CGameObject* obj);
 	int fireRate = 50;
 	int eggRate = 75;
-	int powerUpRate = 3000;
-	int powerUpClear = 750;
+	int powerUpRate = 2000;
 	int lastBulletFired = -50;
+	int immunityDuration = 1000;
+	int powerUpDuration = 750;
 	int ticks = 0;	
 	int chickenSpeed = 3;
 	int chickenDirection = 1;
@@ -53,11 +56,11 @@ public:
 	CHeart* heart2;
 	CHeart* heart3;
 	CHealthBar* healthbar;
-	CPowerUp* powerUp;
 	void tick();
 	void draw();
 	void addBullet();
 	void playerAttacked();
 	void chickenAttacked();
+	void powerUpTaken();
 };
 

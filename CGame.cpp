@@ -23,7 +23,6 @@ CGame::CGame() {
 	this->lives.push_back(heart3);
 	healthbar = new CHealthBar(200);
 	this->objects.push_back(healthbar);
-	this->powerUp = nullptr;
 }
 
 CGame::~CGame() {
@@ -63,11 +62,13 @@ void CGame::addEgg()
 }
 
 void CGame::addPowerUp() {
-	int x = left + (rand() % right);
-	int y = bottom + (rand() % top / 2);
-	powerUp = new CPowerUp();
+	int x = left + ((int) rand() % right);
+	int y = bottom + ((int) rand() % top / 2);
+	CPowerUp* powerUp = new CPowerUp();
+	powerUp->powerUpClear = ticks + powerUpDuration;
 	powerUp->xpos = x;
 	powerUp->ypos = y;
+	this->powerUps.push_back(powerUp);
 	this->objects.push_back(powerUp);
 }
 
@@ -77,6 +78,16 @@ void CGame::removeBullet(CBullet* obj) {
 		});
 	if (point != this->bullets.end()) {
 		this->bullets.erase(point);
+	}
+	removeObject(obj);
+}
+
+void CGame::removePowerUp(CPowerUp* obj) {
+	auto point = std::find_if(this->powerUps.begin(), this->powerUps.end(), [obj](CPowerUp* b) -> bool {
+		return b == obj;
+		});
+	if (point != this->powerUps.end()) {
+		this->powerUps.erase(point);
 	}
 	removeObject(obj);
 }
@@ -120,6 +131,20 @@ void CGame::playerAttacked() {
 	}
 }
 
+void CGame::powerUpTaken() {
+	if(powerUps.size() == 0) {
+		return;
+	}
+	for (size_t i = 0;i < powerUps.size();i++) {
+		CPowerUp* powerUp = powerUps[i];
+		if (spaceship->isIntersecting(powerUp)) {
+			spaceship->hasPowerUp = true;
+			spaceship->immunityEnds = ticks + immunityDuration;
+			removePowerUp(powerUp);
+		}
+	}
+}
+
 void CGame::chickenAttacked() {
 	if (healthbar->width == 0) {
 		return;
@@ -139,7 +164,10 @@ void CGame::chickenAttacked() {
 
 void CGame::tick() {
 	if (!gameOver) {
-		playerAttacked();
+		powerUpTaken();
+		if(!(spaceship->hasPowerUp)){
+			playerAttacked();
+		}
 		chickenAttacked();
 		if (ticks % eggRate == 0) {
 			addEgg();
@@ -149,8 +177,15 @@ void CGame::tick() {
 			addPowerUp();
 		}
 
-		if (ticks % (powerUpRate + powerUpClear) == 0) {
-			removeObject(powerUp);
+		for (size_t i = 0;i < powerUps.size();i++) {
+			CPowerUp* powerUp = powerUps[i];
+			if (ticks >= powerUp->powerUpClear) {
+				removePowerUp(powerUp);
+			}
+		}
+
+		if (spaceship->hasPowerUp && spaceship->immunityEnds < ticks) {
+			spaceship->hasPowerUp = false;
 		}
 
 		switch (chickenDirection) {

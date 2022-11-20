@@ -9,7 +9,7 @@ void ellipse(int rx, int ry, int xc, int yc, float r, float g, float b) {
 	dx = 2 * ry * ry * x;
 	dy = 2 * rx * rx * y;
 
-	glClearColor(0.29, 0.27, 0.35, 0);
+	glClearColor(0, 0, 0, 0);
 	glColor3f(r, g, b);
 	// glColor3f(r, g, b);
 	glPointSize(1);
@@ -75,7 +75,7 @@ void face(int rx, int ry, int xc, int yc, float r, float g, float b) {
 	dx = 2 * ry * ry * x;
 	dy = 2 * rx * rx * y;
 
-	glClearColor(0.29, 0.27, 0.35, 0);
+	glClearColor(0, 0, 0, 0);
 	glColor3f(r, g, b);
 	// glColor3f(r, g, b);
 	glPointSize(1);
@@ -133,7 +133,7 @@ void circle(int rx, int ry, int xc, int yc, float r, float g, float b) {
 	dx = 2 * ry * ry * x;
 	dy = 2 * rx * rx * y;
 
-	glClearColor(0.29, 0.27, 0.35, 0);
+	glClearColor(0, 0, 0, 0);
 	glColor3f(r, g, b);
 	// glColor3f(r, g, b);
 	glPointSize(1);
@@ -191,7 +191,7 @@ void semicircle(int rx, int ry, int xc, int yc, float r, float g, float b) {
 	dx = 2 * ry * ry * x;
 	dy = 2 * rx * rx * y;
 
-	glClearColor(0.29, 0.27, 0.35, 0);
+	glClearColor(0, 0, 0, 0);
 	glColor3f(r, g, b);
 	// glColor3f(r, g, b);
 	glPointSize(1);

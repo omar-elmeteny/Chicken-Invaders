@@ -5,6 +5,7 @@ class CSpaceship :
 {
 public:
     bool hasPowerUp = false;
+    int immunityEnds = 0;
     void draw();
     Rectangle getRectangle();
 };
